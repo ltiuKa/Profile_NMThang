@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang Bảo Trì | Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0069f5;
+            --secondary-blue: #00c4ff;
+            --text-blue: #005add;
+            --bg-white: #ffffff;
+            --light-gray: #f8f9fa;
+            --error-red: #e74c3c;
+            --success-green: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-white);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--secondary-blue);
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-30px) translateX(30px);
+            }
+            50% {
+                transform: translateY(-15px) translateX(-15px);
+            }
+            75% {
+                transform: translateY(20px) translateX(20px);
+            }
+        }
+        
+        .container {
+            width: 85%;
+            max-width: 1000px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 105, 245, 0.15);
+            margin: 20px;
+            border: 1px solid rgba(0, 105, 245, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .glowing-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            animation: borderGlow 8s infinite linear;
+            pointer-events: none;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% {
+                border-color: rgba(0, 105, 245, 0.1);
+                box-shadow: 0 0 15px rgba(0, 105, 245, 0.1);
+            }
+            50% {
+                border-color: rgba(0, 196, 255, 0.3);
+                box-shadow: 0 0 25px rgba(0, 196, 255, 0.3);
+            }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-blue);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #555;
+        }
+        
+        .cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 105, 245, 0.2);
+        }
+        
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 105, 245, 0.3);
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            margin: 0 15px;
+            text-align: center;
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            background: var(--light-gray);
+            border-radius: 15px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 15px rgba(0, 105, 245, 0.1);
+            margin-bottom: 10px;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .social-links {
+            margin-top: 40px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 105, 245, 0.2);
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 105, 245, 0.3);
+        }
+        
+        .loader {
+            margin: 30px auto;
+            width: 200px;
+            height: 6px;
+            background: rgba(0, 105, 245, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .loader-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 10px;
+            animation: loading 2s infinite ease-in-out;
+        }
+        
+        @keyframes loading {
+            0% {
+                width: 0;
+            }
+            50% {
+                width: 70%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        
+        .gear-icon {
+            animation: spin 8s infinite linear;
+            font-size: 4rem;
+            margin: 10px 0 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(30px);
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #777;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-blue);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eaeaea;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 105, 245, 0.1);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(0, 105, 245, 0.2);
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 105, 245, 0.3);
+        }
+        
+        .form-error {
+            color: var(--error-red);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-control.error {
+            border-color: var(--error-red);
+        }
+        
+        .notification {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .notification.success {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: var(--success-green);
+            border: 1px solid rgba(39, 174, 96, 0.2);
+        }
+        
+        .notification.error {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--error-red);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+                width: 60px;
+                height: 60px;
+            }
+            
+            .container {
+                padding: 25px;
+            }
+            
+            .countdown-item {
+                margin: 0 10px 15px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="glowing-border"></div>
+        <i class="fas fa-cog gear-icon"></i>
+        <h1>Đang Nâng Cấp</h1>
+        <p class="subtitle">Portfolio của tôi đang được cải tiến</p>
+        
+        <p class="message">
+            Tôi đang nâng cấp portfolio với những dự án mới và công nghệ hiện đại nhất.
+            Xin vui lòng quay lại sau. Tôi đang làm việc chăm chỉ để mang đến trải nghiệm tốt nhất cho bạn!
+        </p>
+        
+        <div class="loader">
+            <div class="loader-bar"></div>
+        </div>
+        
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Ngày</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Giờ</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Phút</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Giây</div>
+            </div>
+        </div>
+        
+        <button class="cta" id="notify-btn">Thông báo khi hoàn thành</button>
+        
+        <div class="social-links">
+            <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+    
+    <!-- Modal Form -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+            <h2 class="modal-title">Đăng ký thông báo</h2>
+            <p>Vui lòng điền thông tin để nhận thông báo khi website hoàn thành:</p>
+            
+            <form id="notifyForm">
+                <div class="form-group">
+                    <label for="name">Họ tên:</label>
+                    <input type="text" id="name" class="form-control" placeholder="Nhập họ tên của bạn">
+                    <div class="form-error" id="nameError">Vui lòng nhập họ tên</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" class="form-control" placeholder="example@gmail.com">
+                    <div class="form-error" id="emailError">Vui lòng nhập email hợp lệ</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Nhập số điện thoại của bạn">
+                    <div class="form-error" id="phoneError">Vui lòng nhập số điện thoại hợp lệ</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Lời nhắn (tùy chọn):</label>
+                    <textarea id="message" class="form-control" placeholder="Nhập lời nhắn của bạn"></textarea>
+                </div>
+                
+                <div class="notification success" id="successNotification">
+                    Đăng ký thành công! Bạn sẽ nhận được thông báo khi trang web hoàn thành.
+                </div>
+                
+                <div class="notification error" id="errorNotification">
+                    Có lỗi xảy ra. Vui lòng thử lại sau.
+                </div>
+                
+                <button type="submit" class="submit-btn">Đăng ký ngay</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tạo hiệu ứng particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 15 : 25;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 20 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Độ trễ animation
+                particle.style.animationDelay = `${Math.random() * 8}s`;
+                
+                // Thêm vào container
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Đếm ngược
+        function startCountdown() {
+            // Đặt ngày kết thúc (5 ngày từ thời điểm hiện tại)
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 5);
+            
+            function updateCountdown() {
+                const now = new Date();
+                const timeDifference = endDate - now;
+                
+                if (timeDifference <= 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+                
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days < 10 ? `0${days}` : days;
+                document.getElementById('hours').textContent = hours < 10 ? `0${hours}` : hours;
+                document.getElementById('minutes').textContent = minutes < 10 ? `0${minutes}` : minutes;
+                document.getElementById('seconds').textContent = seconds < 10 ? `0${seconds}` : seconds;
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Modal handling
+        function setupModal() {
+            const modal = document.getElementById('contactModal');
+            const notifyBtn = document.getElementById('notify-btn');
+            const closeModal = document.getElementById('closeModal');
+            const form = document.getElementById('notifyForm');
+            
+            // Mở modal
+            notifyBtn.addEventListener('click', () => {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Ngăn scroll trên body
+            });
+            
+            // Đóng modal khi click nút đóng
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                resetForm();
+            });
+            
+            // Đóng modal khi click bên ngoài
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    resetForm();
+                }
+            });
+            
+            // Reset form
+            function resetForm() {
+                form.reset();
+                document.getElementById('successNotification').style.display = 'none';
+                document.getElementById('errorNotification').style.display = 'none';
+                
+                // Reset validation styles
+                const inputs = form.querySelectorAll('.form-control');
+                inputs.forEach(input => {
+                    input.classList.remove('error');
+                });
+                
+                const errors = form.querySelectorAll('.form-error');
+                errors.forEach(error => {
+                    error.style.display = 'none';
+                });
+            }
+        }
+        
+        // Form validation and submission
+        function setupFormHandling() {
+            const form = document.getElementById('notifyForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (validateForm()) {
+                    submitForm();
+                }
+            });
+            
+            function validateForm() {
+                let isValid = true;
+                
+                // Validate name
+                const name = document.getElementById('name');
+                const nameError = document.getElementById('nameError');
+                if (!name.value.trim()) {
+                    name.classList.add('error');
+                    nameError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    name.classList.remove('error');
+                    nameError.style.display = 'none';
+                }
+                
+                // Validate email
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('emailError');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email.value.trim() || !emailPattern.test(email.value)) {
+                    email.classList.add('error');
+                    emailError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    email.classList.remove('error');
+                    emailError.style.display = 'none';
+                }
+                
+                // Validate phone
+                const phone = document.getElementById('phone');
+                const phoneError = document.getElementById('phoneError');
+                const phonePattern = /^[0-9]{10,12}$/;
+                if (!phone.value.trim() || !phonePattern.test(phone.value.replace(/[- )(]/g, ''))) {
+                    phone.classList.add('error');
+                    phoneError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    phone.classList.remove('error');
+                    phoneError.style.display = 'none';
+                }
+                
+                return isValid;
+            }
+            
+            // function submitForm() {
+            //     const name = document.getElementById('name').value;
+            //     const email = document.getElementById('email').value;
+            //     const phone = document.getElementById('phone').value;
+            //     const message = document.getElementById('message').value;
+            //     const successNotification = document.getElementById('successNotification');
+            //     const errorNotification = document.getElementById('errorNotification');
+                
+            //     // Mô phỏng gửi email thông báo truy cập đến anhbao88thang@gmail.com
+            //     // Trong thực tế, bạn cần một API endpoint để xử lý gửi email
+                
+            //     // Mô phỏng một request API để gửi email
+            //     try {
+            //         // Mô phỏng quá trình gửi
+            //         console.log("Thông tin người dùng: ", {
+            //             name,
+            //             email,
+            //             phone,
+            //             message,
+            //             timestamp: new Date().toISOString(),
+            //             targetEmail: "anhbao88thang@gmail.com"
+            //         });
+                    
+            //         // Giả lập thành công (trong thực tế là gọi API)
+            //         // setTimeout để mô phỏng thời gian gửi
+            //         successNotification.style.display = 'none';
+            //         errorNotification.style.display = 'none';
+                    
+            //         const submitBtn = document.querySelector('.submit-btn');
+            //         submitBtn.textContent = 'Đang xử lý...';
+            //         submitBtn.disabled = true;
+                    
+            //         setTimeout(() => {
+            //             // Hiển thị thông báo thành công
+            //             successNotification.style.display = 'block';
+            //             errorNotification.style.display = 'none';
+            //             submitBtn.textContent = 'Đăng ký ngay';
+            //             submitBtn.disabled = false;
+                        
+            //             // Đóng modal sau 3 giây
+            //             setTimeout(() => {
+            //                 document.getElementById('contactModal').classList.remove('active');
+            //                 document.body.style.overflow = 'auto';
+                            
+            //                 // Thay đổi trạng thái nút thông báo
+            //                 const notifyBtn = document.getElementById('notify-btn');
+            //                 notifyBtn.textContent = 'Đã đăng ký thông báo';
+            //                 notifyBtn.disabled = true;
+            //                 notifyBtn.style.opacity = '0.7';
+            //                 notifyBtn.style.transform = 'none';
+            //                 notifyBtn.style.boxShadow = 'none';
+                            
+            //                 // Reset form sau khi đóng
+            //                 form.reset();
+            //                 successNotification.style.display = 'none';
+            //             }, 3000);
+            //         }, 1500);
+                    
+            //         // Lưu trữ email đã đăng ký vào local storage
+            //         localStorage.setItem('notificationRegistered', true);
+                    
+            //     } catch (error) {
+            //         console.error("Lỗi khi gửi form:", error);
+            //         successNotification.style.display = 'none';
+            //         errorNotification.style.display = 'block';
+            //     }
+            // }
+            function submitForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            const successNotification = document.getElementById('successNotification');
+            const errorNotification = document.getElementById('errorNotification');
+            const submitBtn = document.querySelector('.submit-btn');
+
+            // Ẩn các thông báo trước khi gửi
+            successNotification.style.display = 'none';
+            errorNotification.style.display = 'none';
+
+            // Disable nút trong lúc gửi
+            submitBtn.textContent = 'Đang xử lý...';
+            submitBtn.disabled = true;
+
+            // Gửi dữ liệu tới Formspree
+            fetch("https://formspree.io/f/xkgjqzgy", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    message: message
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Hiển thị thành công
+                    successNotification.style.display = 'block';
+                    errorNotification.style.display = 'none';
+                    submitBtn.textContent = 'Đăng ký ngay';
+                    submitBtn.disabled = false;
+
+                    // Cập nhật giao diện
+                    setTimeout(() => {
+                        document.getElementById('contactModal').classList.remove('active');
+                        document.body.style.overflow = 'auto';
+
+                        const notifyBtn = document.getElementById('notify-btn');
+                        notifyBtn.textContent = 'Đã đăng ký thông báo';
+                        notifyBtn.disabled = true;
+                        notifyBtn.style.opacity = '0.7';
+                        notifyBtn.style.transform = 'none';
+                        notifyBtn.style.boxShadow = 'none';
+
+                        // Reset form
+                        document.getElementById('notifyForm').reset();
+                        successNotification.style.display = 'none';
+                    }, 3000);
+
+                    // Lưu trạng thái đã đăng ký
+                    localStorage.setItem('notificationRegistered', true);
+                } else {
+                    throw new Error("Lỗi khi gửi form");
+                }
+    })
+    .catch(error => {
+        console.error("Lỗi gửi form:", error);
+        errorNotification.style.display = 'block';
+        successNotification.style.display = 'none';
+        submitBtn.textContent = 'Đăng ký ngay';
+        submitBtn.disabled = false;
+    });
+}
+
+        }
+        
+        // Xử lý sự kiện click bên ngoài để đóng modal
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('contactModal');
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Kiểm tra xem người dùng đã đăng ký chưa
+        function checkRegistration() {
+            if (localStorage.getItem('notificationRegistered')) {
+                const notifyBtn = document.getElementById('notify-btn');
+                notifyBtn.textContent = 'Đã đăng ký thông báo';
+                notifyBtn.disabled = true;
+                notifyBtn.style.opacity = '0.7';
+                notifyBtn.style.transform = 'none';
+                notifyBtn.style.boxShadow = 'none';
+            }
+        }
+        
+        // Ghi log thông tin truy cập
+        function logVisit() {
+            const visitorInfo = {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                screenWidth: window.screen.width,
+                screenHeight: window.screen.height,
+                referrer: document.referrer || 'Direct'
+            };
+            
+            console.log("Thông tin truy cập: ", visitorInfo);
+            
+            // Trong thực tế, bạn sẽ gửi thông tin này đến một endpoint API
+            // để lưu log và gửi email thông báo đến anhbao88thang@gmail.com
+        }
+        
+        // Khởi tạo trang
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            startCountdown();
+            setupModal();
+            setupFormHandling();
+            checkRegistration();
+            logVisit();
+        });
+    </script>
+</body>
+</html>
